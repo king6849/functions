@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>excel</artifactId>
+        <groupId>com.king.function</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>start</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>start</name>
+
+    <packaging>war</packaging>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.king.function</groupId>
+            <artifactId>excel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <!--springboot maven插件-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.5</version>
+                <configuration>
+                    <!--fork : 热部署使用，如果没有该项配置，devtools不会起作用，即应用不会restart -->
+                    <fork>true</fork>
+                    <!--打包为可执行jar包。 begin-->
+                    <!--打包类型：JAR/WAR/ZIP/MODULE/NONE-->
+                    <layout>ZIP</layout>
+                    <!--指定程序入口-->
+                    <mainClass>com.king.functions.start.StartApplication</mainClass>
+                    <!--只打包指定项目-->
+                    <includes>
+                        <include>
+                            <groupId>com.king.functions.excel</groupId>
+                            <artifactId>excel</artifactId>
+                        </include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!--打包为可执行jar包-->
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <!--打包相关配置项end-->
+            </plugin>
+
+            <!--配置打包为jar包的输出路径-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <!-- 指定打包的jar包输出路径-->
+                    <outputDirectory>${basedir}\target</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

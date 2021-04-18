@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.king.functions.excel.Dao.SheetTable2Mapper">
+
+    <select id="selectGrade" parameterType="string" resultType="hashmap">
+        select student_no, student_name, achievement_mark, usual_grades, final_exam
+        from grade_model
+        where profession = #{profession}
+          and class_name = #{className}
+          and course_title = #{courseTitle}
+        order by student_no
+    </select>
+
+    <select id="conditions" resultType="hashmap">
+        select profession, class_name, course_title
+        from grade_model
+        group by profession, class_name, course_title;
+    </select>
+
+
+</mapper>

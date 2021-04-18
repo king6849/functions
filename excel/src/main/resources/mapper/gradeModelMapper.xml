@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.king.functions.excel.Dao.GradeModelMapper">
+
+    <select id="selectGrade" parameterType="string" resultType="hashmap">
+        select student_no,student_name,achievement_mark,usual_grades,final_exam
+        from ${table}
+        where profession =#{profession}
+            and class_name =#{className}
+            and course_title = #{courseTitle}
+        limit 3;
+    </select>
+
+    <select id="selectClassName" resultType="hashmap">
+        select profession,class_name from grade_model group by profession,class_name;
+    </select>
+
+
+</mapper>
