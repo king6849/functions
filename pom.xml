@@ -11,6 +11,10 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <!-- Docker镜像上传的用户名 -->
+        <docker.image.prefix>lian jin</docker.image.prefix>
+        <function.path.root>E:\idea\functions</function.path.root>
+        <function.excel>E:\idea\functions\excel</function.excel>
     </properties>
 
     <parent>
@@ -28,10 +32,7 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -145,11 +146,102 @@
             </resource>
         </resources>
 
+
         <plugins>
+            <!--编译配置-->
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerArguments>
+                        <!--编译依赖的包-->
+                        <extdirs>${function.path.root}/lib</extdirs>
+                    </compilerArguments>
+                </configuration>
             </plugin>
+
+            <!--配置打包为jar包的输出路径-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <!-- 指定打包的jar包输出路径-->
+                    <outputDirectory>${function.path.root}/jar</outputDirectory>
+                </configuration>
+            </plugin>
+
+            <!--将依赖包导出到指定路径-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!--依赖包导出到指定路径-->
+                            <outputDirectory>${function.path.root}/lib</outputDirectory>
+                            <excludeGroupIds>com.king.functions</excludeGroupIds>
+                            <excludeTransitive>false</excludeTransitive>
+                            <stripVersion>false</stripVersion>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--docker-->
+            <!--            <plugin>-->
+            <!--                <groupId>com.spotify</groupId>-->
+            <!--                <artifactId>docker-maven-plugin</artifactId>-->
+            <!--                <version>1.0.0</version>-->
+            <!--                <configuration>-->
+            <!--                    &lt;!&ndash; 镜像名称 &ndash;&gt;-->
+            <!--                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>-->
+            <!--                    &lt;!&ndash; 指定标签 &ndash;&gt;-->
+            <!--                    <imageTags>-->
+            <!--                        <imageTag>latest</imageTag>-->
+            <!--                    </imageTags>-->
+            <!--                    &lt;!&ndash; 基础镜像版本JDK1.8 &ndash;&gt;-->
+            <!--                    <baseImage>java</baseImage>-->
+            <!--                    &lt;!&ndash; 作者本人信息 &ndash;&gt;-->
+            <!--                    <maintainer>965853365@qq.com</maintainer>-->
+            <!--                    &lt;!&ndash; 切换到ROOT目录 &ndash;&gt;-->
+            <!--                    <workdir>/ROOT</workdir>-->
+            <!--                    <cmd>["java", "-version"]</cmd>-->
+            <!--                    <entryPoint>["java", "-jar", "excel-1.0-SNAPSHOT.jar"]</entryPoint>-->
+
+            <!--                    &lt;!&ndash; 指定 DockerFile路径 &ndash;&gt;-->
+            <!--                    <dockerDirectory>${function.path.root}/docker</dockerDirectory>-->
+            <!--                    &lt;!&ndash; 指定远程 Docker api地址 &ndash;&gt;-->
+            <!--                    <dockerHost>http://localhost</dockerHost>-->
+
+            <!--                    &lt;!&ndash; 复制Jar包到指定的Docker容器 &ndash;&gt;-->
+            <!--                    <resources>-->
+            <!--                        <resource>-->
+            <!--                            <targetPath>/ROOT</targetPath>-->
+            <!--                            &lt;!&ndash;用于指定需要复制的根目录，${project.build.directory}表示target目录&ndash;&gt;-->
+            <!--                            <directory>E:\\idea\\functions\\excel\\target</directory>-->
+            <!--                            &lt;!&ndash;用于指定需要复制的文件。${project.build.finalName}.jar指的是打包后的jar包文件。&ndash;&gt;-->
+            <!--                            <include>${function.path.root}/jar/excel-1.0-SNAPSHOT.jar</include>-->
+            <!--                        </resource>-->
+            <!--                    </resources>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    &lt;!&ndash; 当执行maven package时执行maven clean package：build&ndash;&gt;-->
+            <!--                    <execution>-->
+            <!--                        <id>build-image</id>-->
+            <!--                        <phase>package</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>build</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 

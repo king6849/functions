@@ -15,10 +15,10 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="common" options="-parameters" />
-      <module name="excel" options="-parameters" />
-      <module name="functions" options="-parameters" />
-      <module name="start" options="-parameters" />
+      <module name="common" options="-parameters -extdirs E:\idea\functions/lib" />
+      <module name="excel" options="-parameters -extdirs E:\idea\functions/lib" />
+      <module name="functions" options="" />
+      <module name="start" options="-parameters -extdirs E:\idea\functions/lib" />
     </option>
   </component>
 </project>
