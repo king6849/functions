@@ -12,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "/excel")
 public class ExcelController {
 
     @Autowired

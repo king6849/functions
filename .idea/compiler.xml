@@ -10,15 +10,17 @@
         <module name="common" />
         <module name="excel" />
         <module name="start" />
+        <module name="spider" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="common" options="-parameters -extdirs E:\idea\functions/lib" />
-      <module name="excel" options="-parameters -extdirs E:\idea\functions/lib" />
+      <module name="common" options="-parameters -extdirs E:\TsingLan\MyProjects\functions/lib" />
+      <module name="excel" options="-parameters -extdirs E:\TsingLan\MyProjects\functions/lib" />
       <module name="functions" options="" />
-      <module name="start" options="-parameters -extdirs E:\idea\functions/lib" />
+      <module name="spider" options="-parameters -extdirs E:\TsingLan\MyProjects\functions/lib" />
+      <module name="start" options="-parameters -extdirs E:\TsingLan\MyProjects\functions/lib" />
     </option>
   </component>
 </project>

@@ -13,8 +13,8 @@
         <java.version>1.8</java.version>
         <!-- Docker镜像上传的用户名 -->
         <docker.image.prefix>lian jin</docker.image.prefix>
-        <function.path.root>E:\idea\functions</function.path.root>
-        <function.excel>E:\idea\functions\excel</function.excel>
+        <function.path.root>E:\TsingLan\MyProjects\functions</function.path.root>
+        <function.excel>E:\TsingLan\MyProjects\functions\excel</function.excel>
     </properties>
 
     <parent>
@@ -27,6 +27,7 @@
     <modules>
         <module>start</module>
         <module>excel</module>
+        <module>spider</module>
         <module>common</module>
     </modules>
 
@@ -145,7 +146,6 @@
                 <filtering>false</filtering>
             </resource>
         </resources>
-
 
         <plugins>
             <!--编译配置-->
