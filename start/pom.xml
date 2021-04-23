@@ -46,7 +46,7 @@
                     <!--打包类型：JAR/WAR/ZIP/MODULE/NONE-->
                     <layout>ZIP</layout>
                     <!--指定程序入口-->
-                    <mainClass>com.king.functions.start.StartApplication</mainClass>
+                    <mainClass>com.king.function.start.StartApplication</mainClass>
                     <!--只打包指定项目-->
                     <!--                    <includes>-->
                     <!--                        <include>-->

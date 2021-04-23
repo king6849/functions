@@ -1,6 +1,8 @@
 package com.king.function.excel.Excel.BaseProcess;
 
 import com.king.function.excel.Dao.SheetTableMapper;
+import com.king.function.excel.Utils.PathUtil;
+import com.king.function.excel.Utils.SpringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ public class BaseExportExcel extends BaseWriteXLSXExcel {
 
     @Autowired
     private SheetTableMapper sheetTableMapper;
+
+    protected PathUtil pathUtil = SpringUtil.getBean(PathUtil.class);
 
     /**
      * 外层查询结果

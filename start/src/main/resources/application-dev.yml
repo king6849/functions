@@ -1,0 +1,12 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: root
+    url: jdbc:mysql://172.17.0.1:3307/TsingLan_Test
+    username: root
+  servlet:
+    #    文件上传
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1000MB

@@ -3,6 +3,7 @@ package com.king.function.excel.Excel.BaseProcess;
 import com.king.function.excel.Exception.IllegalFileException;
 import com.king.function.excel.Utils.ObjectUtils;
 import com.king.function.excel.Utils.PathUtil;
+import com.king.function.excel.Utils.SpringUtil;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -11,6 +12,7 @@ import java.io.IOException;
 public class BaseSaveFile {
     public final static String xls = "xls";
     public final static String xlsx = "xlsx";
+    protected PathUtil pathUtil = SpringUtil.getBean(PathUtil.class);
 
     public String saveUploadFile(MultipartFile file) throws Exception {
         return saveUploadFile(file, null, null);
@@ -27,7 +29,7 @@ public class BaseSaveFile {
             fileName = file.getOriginalFilename();
         }
         if (ObjectUtils.isNullStringObj(saveRootPath)) {
-            saveRootPath = PathUtil.DEFAULT_SAVE_EXPORT_BASE_PATH;
+            saveRootPath = pathUtil.getBase_save_path();
         }
         String savePath = saveRootPath + "\\" + fileName;
         try {

@@ -1,9 +1,6 @@
 package com.king.function.excel.Excel.BaseProcess;
 
-import com.king.function.excel.Utils.CreateFileUtil;
-import com.king.function.excel.Utils.ExcelUtil;
-import com.king.function.excel.Utils.ObjectUtils;
-import com.king.function.excel.Utils.PathUtil;
+import com.king.function.excel.Utils.*;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -22,6 +19,7 @@ public abstract class BaseWriteXLSXExcel {
     private List<String> rowName;
     private List<Object[]> dataList = new ArrayList<>();
     private final ExcelUtil excelUtil = new ExcelUtil();
+    protected PathUtil pathUtil = SpringUtil.getBean(PathUtil.class);
 
     public BaseWriteXLSXExcel() {
     }
@@ -271,7 +269,7 @@ public abstract class BaseWriteXLSXExcel {
      */
     public void exportExcelFile(String filePath, OutputStream outputStream, boolean header) throws Exception {
         if (ObjectUtils.isNullStringObj(filePath)) {
-            filePath = PathUtil.DEFAULT_EXPORT_BASE_PATH + "\\" + excelUtil.randomFileName() + "." + BaseSaveFile.xlsx;
+            filePath = pathUtil.getBase_export_path() + "\\" + excelUtil.randomFileName() + "." + BaseSaveFile.xlsx;
         }
         if (outputStream == null) {
             export(new FileOutputStream(CreateFileUtil.createFile(filePath)), header);

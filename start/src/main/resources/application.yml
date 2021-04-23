@@ -1,0 +1,10 @@
+#配置环境
+spring:
+  profiles:
+    include: excel
+    active: dev
+
+server:
+  port: 20000
+
+

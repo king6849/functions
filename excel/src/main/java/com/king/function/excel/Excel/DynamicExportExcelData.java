@@ -3,6 +3,7 @@ package com.king.function.excel.Excel;
 import com.king.function.excel.Excel.BaseProcess.BaseExportExcel;
 import com.king.function.excel.Utils.ObjectUtils;
 import com.king.function.excel.Utils.PathUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Component
 public class DynamicExportExcelData extends BaseExportExcel {
+
 
     /**
      * 导出简单结构数据
@@ -46,7 +48,7 @@ public class DynamicExportExcelData extends BaseExportExcel {
     @Async("asyncExcelExecutor")
     public void dynamicExportExcel(List<String> rowName, String savePathRoot, LinkedHashMap<String, Object> outerSQLConditions, LinkedHashMap<String, Object> innerSqlCondition) {
         if (ObjectUtils.isNullStringObj(savePathRoot)) {
-            savePathRoot = PathUtil.TEST_DEFAULT_EXPORT_BASE_PATH;
+            savePathRoot = pathUtil.getBase_export_path();
         }
         int rowNameLength = rowName.size();
         //外层sql条件

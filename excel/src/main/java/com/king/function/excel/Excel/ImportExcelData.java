@@ -1,10 +1,11 @@
 package com.king.function.excel.Excel;
 
+import com.king.function.excel.Dao.SheetTableMapper;
 import com.king.function.excel.Excel.BaseProcess.BaseReadExcel;
 import com.king.function.excel.Exception.SqlFiledException;
-import com.king.function.excel.Dao.SheetTableMapper;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 
 @Component
+@DependsOn("springUtil")
 public class ImportExcelData extends BaseReadExcel {
 
     @Autowired
