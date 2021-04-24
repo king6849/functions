@@ -1,6 +1,5 @@
 package com.king.function.excel.Controller;
 
-import com.king.function.excel.Dao.SheetTableMapper;
 import com.king.function.excel.Exception.SqlFiledException;
 import com.king.function.excel.Service.ExcelServiceImpl;
 import com.king.function.excel.Utils.ObjectUtils;
@@ -21,8 +20,6 @@ public class ExcelController {
     @Autowired
     private ExcelServiceImpl excelService;
 
-    @Autowired
-    private SheetTableMapper sheetTableMapper;
 
     @RequestMapping(path = "/saveExcel", method = RequestMethod.POST)
     public String saveExcel(@RequestBody MultipartFile excel, @RequestParam String table) {

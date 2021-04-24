@@ -1,7 +1,6 @@
 #配置环境
 spring:
   profiles:
-    include: excel
     active: dev
 
 server:

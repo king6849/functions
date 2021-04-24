@@ -22,7 +22,7 @@ public class ExcelSqlProvider {
             }
             sql.append(key).append(",");
         }
-        sql.replace(sql.length() - 1, sql.length() , "");
+        sql.replace(sql.length() - 1, sql.length(), "");
         sql.append(")").append(" values(");
 //        预设参数
         for (String key : params.keySet()) {
@@ -31,9 +31,25 @@ public class ExcelSqlProvider {
             }
             sql.append("#{").append(key).append("},");
         }
-        sql.replace(sql.length() - 1, sql.length() , "");
+        sql.replace(sql.length() - 1, sql.length(), "");
         sql.append(");");
         return sql.toString();
+    }
+
+    public String initTable(String table, int columnNum) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("insert into ").append(table).append(" values(");
+        ++columnNum;
+        for (int i = 0; i < columnNum; i++) {
+            stringBuilder.append(i + 1).append(",");
+        }
+        stringBuilder.replace(stringBuilder.length() - 1, stringBuilder.length(), "");
+        stringBuilder.append(");");
+        return stringBuilder.toString();
+    }
+
+    public String deleteTmpRecord(String table, int id) {
+        return "delete from ${table} where id=#{id};";
     }
 
     /**

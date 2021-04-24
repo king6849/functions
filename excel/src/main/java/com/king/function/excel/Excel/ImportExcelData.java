@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -41,6 +40,11 @@ public class ImportExcelData extends BaseReadExcel {
      */
     @Transactional
     public void doSaveDate(Row row, int cells) {
+        LinkedHashMap<String, Object> paramMap = putSqlFiledAndParamValue(row, cells);
+        sheetTableMapper.saveExcelData(paramMap);
+    }
+
+    public LinkedHashMap<String, Object> putSqlFiledAndParamValue(Row row, int cells) {
         //列值
         Object[] cellValue = new Object[cells + 1];
         for (int i = 0; i < cells; i++) {
@@ -60,20 +64,26 @@ public class ImportExcelData extends BaseReadExcel {
         }
         params.put("table", this.table);
         System.out.println(params);
-        sheetTableMapper.saveExcelData(params);
+        return params;
     }
 
-    @Override
-    protected void afterSaveUploadFile(MultipartFile file) {
+    public void initTable(int cells) {
+        sheetTableMapper.initTable(table, cells);
         this.sqlStructure = sheetTableMapper.sqlStructure(table);
     }
 
     @Override
     protected void dealCellsBefore(Row row, int physicalNumberOfCells) throws SqlFiledException {
+        initTable(physicalNumberOfCells);
         int filedNum = this.sqlStructure.size() - 1;
         if (filedNum != physicalNumberOfCells) {
             throw new SqlFiledException("数据库字段数量不一致,数据库字段数量是" + this.sqlStructure.size() + " ,Excel列数是" + physicalNumberOfCells);
         }
+    }
+
+    @Override
+    protected void dealExcelAfter() {
+        sheetTableMapper.deleteTmpRecord(table, 1);
     }
 
     public void setTable(String table) {

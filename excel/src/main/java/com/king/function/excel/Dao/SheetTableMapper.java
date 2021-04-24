@@ -30,6 +30,15 @@ public interface SheetTableMapper {
     LinkedHashMap<String, Object> sqlStructure(String table);
 
     /**
+     * 初始化数据库
+     */
+    @SelectProvider(type = ExcelSqlProvider.class, method = "initTable")
+    void initTable(String table, int columnNum);
+
+    @SelectProvider(type = ExcelSqlProvider.class, method = "deleteTmpRecord")
+    void deleteTmpRecord(String table, int id);
+
+    /**
      * 外层SQL查询条件
      *
      * @param params 参数以及sql语句

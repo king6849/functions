@@ -40,9 +40,12 @@ public abstract class BaseReadExcel extends BaseSaveFile {
             if (row == null) {
                 continue;
             }
+            dealCellsBefore(row, row.getPhysicalNumberOfCells());
             dealRows(sheet);
         }
+        dealExcelAfter();
     }
+
 
     /**
      * 获取 double类型值
@@ -122,6 +125,8 @@ public abstract class BaseReadExcel extends BaseSaveFile {
         return workbook;
     }
 
+    protected void dealExcelAfter() {
+    }
 
     /**
      * 如何具体处理每一行的数据
@@ -133,7 +138,6 @@ public abstract class BaseReadExcel extends BaseSaveFile {
         while (iterator.hasNext()) {
             Row row = iterator.next();
             int physicalNumberOfCells = row.getPhysicalNumberOfCells();
-            dealCellsBefore(row, physicalNumberOfCells);
             dealCells(row, physicalNumberOfCells);
         }
     }
