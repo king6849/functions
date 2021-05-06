@@ -3,6 +3,7 @@ package com.king.function.excel.Service;
 
 import com.king.function.excel.Excel.DynamicExportExcelData;
 import com.king.function.excel.Excel.ImportExcelData;
+import com.king.function.excel.Excel.ParseExcelHeader;
 import com.king.function.excel.Exception.SqlFiledException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -13,6 +14,9 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+/**
+ * @author king
+ */
 @Service
 public class ExcelServiceImpl {
 
@@ -21,6 +25,9 @@ public class ExcelServiceImpl {
 
     @Autowired
     private DynamicExportExcelData dynamicExportExcelData;
+
+    @Autowired
+    private ParseExcelHeader parseExcelHeader;
 
     /***
      * @description: 将Excel保存到数据库
@@ -63,5 +70,26 @@ public class ExcelServiceImpl {
      */
     public void dynamicExportExcel(List<String> rowName, String savePathRoot, LinkedHashMap<String, Object> outerSQLConditions, LinkedHashMap<String, Object> innerSqlCondition) {
         dynamicExportExcelData.dynamicExportExcel(rowName, savePathRoot, outerSQLConditions, innerSqlCondition);
+    }
+
+    /***
+     * @description: 解析表头
+     * @param: [excel] 文件
+     */
+    public void parseHeader(MultipartFile excel) {
+        String saveUploadFile = "";
+        try {
+            saveUploadFile = importExcelData.saveUploadFile(excel);
+            parseExcelHeader.dealExcel(excel, saveUploadFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        File file = new File(saveUploadFile);
+        if (file.exists()) {
+            System.gc();
+            if (file.delete()) {
+                System.out.println("已删除文件 " + saveUploadFile);
+            }
+        }
     }
 }

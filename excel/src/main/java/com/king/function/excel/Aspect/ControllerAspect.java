@@ -22,7 +22,7 @@ import java.util.Arrays;
 public class ControllerAspect {
     private final static Logger log = LoggerFactory.getLogger(ControllerAspect.class);
 
-    @Pointcut("execution(public * com.king.functions.excel.Controller.*.*(..))")
+    @Pointcut("execution(public * com.king.function.excel.Controller.*.*(..))")
     public void consumerControllerPointCut() {
     }
 
